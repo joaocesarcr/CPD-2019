@@ -1,0 +1,64 @@
+gameDuration int
+gameMode string
+gameType string
+mapId int
+participantIdentities
+    player:
+        summonerID string
+
+
+participants:
+    chapionId int
+    spell1id  int
+    spell2id  int
+    stats:
+        assists int
+        damageDealtToObjectives int
+        damageDealtToTurrets int
+        damageSelfMiitigated int
+        Deaths int
+        DoubleKills int
+        firstBloodAssists bool
+        firstBloodKill bool
+        firstInibitorAssist bool
+        firstTowerAssist bool
+        firstTowerKill bool
+        goldEarned int
+        inhibitorKills int
+        item0 int
+        item1 int
+        item2 int
+        item3 int
+        item4 int
+        item5 int
+        item6 int
+        killingSprees int
+        kills int
+        largestKillingSpree int
+        largestMultiKill int
+        longestTimeSpentLiving int
+        magicDamageDealtToChampions int
+        neutralMinionsKilled int
+        neutralMinionsKilledEnemyJungle int
+        neutralMinionsKilledTeamJungle int
+        physicalDamageDealtToChampions int
+        timeCCingOthers int
+        totalDamageDealt int
+        totalDamageDealtToChampions int
+        totalDamageTaken int
+        totalMinionsKilled int
+        turretKills int
+        visionScore int
+        visionWardsBoughtInGame int
+        wardsKilled int
+        wardsPlaced int
+        win: bool
+    teamId: int
+    timeline:
+        creepsPerMinDeltas:
+            0-10 float
+            10-20 float
+            20-30 float
+            30-end float
+        lane: string
+        
