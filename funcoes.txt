@@ -16,7 +16,7 @@ APIs
     summoner mastery
 
 Lista com todas as partidas
-Elo do player = sempre é atualizado?
+Elo do player = 
 arquivo com o id do player e suas maestrias
 
 melhores duos = lista com os personagens com maior winrate em partidas no mesmo time que o campeao buscado
