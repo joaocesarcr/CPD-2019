@@ -1,6 +1,20 @@
+import sys
 import requests
 import json
 import time
+
+#######
+# ETC #
+#######
+# Deixa a chave da API em um outro arquivo para impedir que esta seja exposta no GitHub.
+keyFile = open("apiKey.txt", 'r')
+
+key = keyFile.read() # Le o arquivo
+key = key.rstrip()   # Remove o \n
+api_key = "?api_key=" + key # Finaliza a chave que será usada nas requests
+
+matchID =str(1773277412)
+
 
 ################
 # TIME CONTROL #
@@ -8,15 +22,14 @@ import time
 # 20 requests every 1 seconds(s)
 # 100 requests every 2 minutes(s)
 
+# Recebe uma funcao e um parametro para ser utilizado nela. Retorna o tempo de decorrimento da funcao e seu retorno
+# str + generic -> int, generic
+def functionTime(functionName, parameter):
+    initTime = time.time()
+    retorno = functionName(parameter)
+    endTime = time.time()
+    return (endTime - initTime), retorno
 
-#######
-# ETC #
-#######
-
-key = ""   # coloque sua chave aqui
-api_key = "?api_key=" + key
-
-matchID =str(1773277412)
 
 
 ########################
@@ -38,7 +51,6 @@ def getSummonerInfo(sumID):
     URL = "https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + sumID + api_key
     response = requests.get(URL)
     return response.json()
-
 
 
 #####################################################
@@ -71,6 +83,8 @@ def getRank5v5Solo(summonerInfo):
 # TESTES #
 ##########
 
+tempoDecorrido, retorno = functionTime(getMatchInfo, matchID)
+sys.exit()
 match = getMatchInfo(matchID)
 summoner = getSummoner(match,1)
 sumID = getSummonerID(summoner)
