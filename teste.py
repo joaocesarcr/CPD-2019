@@ -11,7 +11,7 @@ keyFile = open("apiKey.txt", 'r')
 
 key = keyFile.read() # Le o arquivo
 key = key.rstrip()   # Remove o \n
-api_key = "?api_key=" + key # Finaliza a chave que será usada nas requests
+api_key = "api_key=" + key # Finaliza a chave que será usada nas requests
 matchID =str(1773189583)
 
 ################
@@ -37,44 +37,63 @@ def functionTime(functionName, parameter):
 # int -> json
 
 def getMatchInfo(matchid):
-    URL = "https://br1.api.riotgames.com/lol/match/v4/matches/" + matchID + api_key
+    URL = "https://br1.api.riotgames.com/lol/match/v4/matches/" + matchID + "?" + api_key
+    response = requests.get(URL)
+    return response.json()
+
+# Recebe um account id e retorna seu historico de partidas contendo apenas partidas rankeadas
+# String -> json
+def getSummonerMatchHistory(accountid):
+    URL = "https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountid + "?queue=420&" + api_key
     response = requests.get(URL)
     return response.json()
 
 #####################################################
 # MANIPULACAO COM OS DADOS RECEBIDOS DE UMA REQUEST #
 #####################################################
+# Recebe um sumonner  de uma partida e retorna o seu ID
+# int + int -> int
+def getSummonerID(summoner):
+    sumID = str(summoner["summonerId"])
+    return sumID
 
- # Recebe uma partida e um inteiro e retorna as informacoes do jogador na posicao int
- # int + int -> json
+
+# Recebe uma partida e um inteiro e retorna as informacoes do jogador na posicao int
+# int + int -> json
 def getSummoner(match, number):
     summoner = match["participantIdentities"][number]
     return summoner
     
 # Recebe um sumonner  de uma partida e retorna o seu ID
 # int + int -> int
-def getSummonerID(summoner):
-    sumID = str(summoner["player"]["summonerId"])
-    return sumID
+
+def getPlayerAccountId(summoner):
+    accountID = summoner["player"]["accountId"]
+    return accountID 
+
+    
 
 
 ##########
 # TESTES #
 ##########
 
-tempoDecorrido, retorno = functionTime(getMatchInfo, matchID)
 match = getMatchInfo(matchID)
-print(json.dumps(match, indent=4, sort_keys=True))
+summoner = getSummoner(match,8)
+accID = getPlayerAccountId(summoner)
+matchH = getSummonerMatchHistory(accID)
+for match in matchH["matches"]:
+    print(json.dumps(match, indent=4, sort_keys=False))
 sys.exit()
-summoner = getSummoner(match,1)
+
+print(json.dumps(match, indent=4, sort_keys=False))
+print(json.dumps(match, indent=4, sort_keys=False))
 sumID = getSummonerID(summoner)
-summonerInfo = getSummonerInfo(sumID)
-print(json.dumps(match, indent=4, sort_keys=True))
 
 ####################
 # SALVA EM ARQUIVO #
 ####################
 
 # with open('output.json', 'w') as json_file:
-        # json.dump(match,json_file) 
+    # json.dump((match, indent=4,sort_keys=True),json_file) 
 
