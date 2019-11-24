@@ -27,6 +27,7 @@ class Teams:
         self.bans = getBans(teamJSON) # Lista coms o campeos banidos
 
 
+
 class Player:
     def __init__(self, playerJSON):
         summoner = getSummoner(match,8) # Pega um summoner aleatorio da partida
@@ -38,12 +39,14 @@ class Match:
         self.teamB = (Teams(matchJSON["teams"][0]))
         self.teamR = (Teams(matchJSON["teams"][1]))
 
-def getBans(teamsJSON):
+def getBans(teamJSON):
     banList = []
     for ban in teamJSON["bans"]:
-        banList = banList.append(ban["championId"])
+        banList.append(ban["championId"])
+    return banList
 
 match1 = Match(matchJSON)
 print(match1.gameId,match1.gameDuration)
 print(match1.teamB.Id)
+print(match1.teamB.bans)
 
