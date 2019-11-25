@@ -13,7 +13,7 @@ api_key = api_key.rstrip()
 # MANIPULACAO COM HTML #
 ########################
 
-# Informa se ocorrou algum erro na request
+# Informa se ocorreu algum erro na request
 # Caso tenha ocorrido, o status_code será maior ou igual a 400
 def requestError(response):
     if (response.status_code >= 400): return True
