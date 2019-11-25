@@ -1,4 +1,3 @@
-
 #####################################################
 # MANIPULACAO COM OS DADOS RECEBIDOS DE UMA REQUEST #
 #####################################################
@@ -32,4 +31,14 @@ def getMatchFMH(matchHistory, number):
 # json -> int 
 def getMatchIDFMH(matchFMH):
     return matchFMH["gameId"]
+
+# Cria uma lista com os bans de um time
+# match["teams"]
+# json -> lista
+def getBans(teamJSON):
+    banList = []
+    for ban in teamJSON["bans"]:
+        banList.append(ban["championId"])
+    return banList
+
 
