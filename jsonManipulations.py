@@ -11,7 +11,8 @@ def getSummonerID(summoner):
 # Recebe uma partida e um inteiro e retorna as informacoes do jogador na posicao int
 # int + int -> json
 def getSummoner(match, number):
-    summoner = match["participantIdentities"][number]
+    summoner = None
+    if (match): summoner = match["participantIdentities"][number]
     return summoner
     
 # Recebe um sumonner  de uma partida e retorna o seu ID

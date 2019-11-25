@@ -1,4 +1,13 @@
 import requests
+#######
+# KEY #
+#######
+# Deixa a chave da API em um outro arquivo para impedir que esta seja exposta no GitHub.
+keyFile = open("apiKey.txt", 'r')
+
+key = keyFile.read() # Le o arquivo key = key.rstrip()   # Remove o \n
+api_key = "api_key=" + key # Finaliza a chave que será usada nas requests
+api_key = api_key.rstrip()
 
 ########################
 # MANIPULACAO COM HTML #
@@ -14,7 +23,7 @@ def requestError(response):
 # Recebe o ID de uma partida e retorna um json com todas as informacoes
 # int -> json
 def getMatchInfo(matchID):
-    URL = "https://br1.api.riotgames.com/lol/match/v4/matches/" + matchID + "?" + api_key
+    URL = "https://br1.api.riotgames.com/lol/match/v4/matches/" + str(matchID) + "?" + api_key
     response = requests.get(URL)
     if requestError(response): return None
     else: return response.json()
@@ -27,4 +36,3 @@ def getSummonerMatchHistory(accountid):
     response = requests.get(URL)
     if requestError(response): return None
     else: return response.json()
-
