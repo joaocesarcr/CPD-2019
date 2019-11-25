@@ -1,5 +1,4 @@
-#####################################################
-# MANIPULACAO COM OS DADOS RECEBIDOS DE UMA REQUEST #
+##################################################### # MANIPULACAO COM OS DADOS RECEBIDOS DE UMA REQUEST #
 #####################################################
 # Recebe um sumonner  de uma partida e retorna o seu ID
 # int + int -> int
@@ -15,9 +14,10 @@ def getSummoner(match, number):
     return summoner
     
 # Recebe um sumonner  de uma partida e retorna o seu ID
-# int + int -> int
+# recebe um participant identities"
+# json -> str
 def getPlayerAccountId(summoner):
-    accountID = summoner["player"]["accountId"]
+    accountID = summoner["player"]["currentAccountId"]
     return accountID 
 
 # Get match from match history

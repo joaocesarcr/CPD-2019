@@ -15,6 +15,9 @@ from jsonManipulations import *
 with open('output.json') as json_file:
     matchJSON = json.load(json_file)
     
+# Recebe o primeiro time (time azul) de uma partida.
+# Como todos valores são booleanos, é possível armazenar todas as informações em um byte
+# json -> binario
 def Byte1TeamJSON(teamJSON):
     firstByte = 0
     # Considera como o primeiro bit o mais a esquerda de um byte 
@@ -57,8 +60,10 @@ def Byte1TeamJSON(teamJSON):
 
 match1 = Match(matchJSON)
 # firstByte = Byte1TeamJSON(matchJSON["teams"][0])
+
 # print(match1.teamB.participants.championId)
-print(json.dumps(match1.teamB.participants.championId, indent=4, sort_keys=False))
+print(json.dumps(match1.teamB.participant1.championId, indent=4, sort_keys=False))
+print(json.dumps(match1.teamB.participant2.championId, indent=4, sort_keys=False))
 # print(match1.gameId,match1.gameDuration)
 # firstByte = ('{0:8}'.format(firstByte))
 # with open("match.xxd", "wb") as mypicklefile:
