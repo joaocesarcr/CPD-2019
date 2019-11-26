@@ -25,7 +25,7 @@ class Teams:
     def __init__(self,teamJSON):
 
         self.Id = teamJSON["teamId"] # int
-        # SEGUNDO BYTE
+        # BOOLSBYTETEAMS
         self.towerKills = teamJSON["towerKills"] # int
         self.inhibitorKills = teamJSON["inhibitorKills"] # int
         self.baronKills = teamJSON["baronKills"]  # int
