@@ -1,5 +1,4 @@
 # Libs
-import pickle
 import sys
 import json
 import struct
@@ -16,6 +15,7 @@ from jsontofile import *
 with open('output.json') as json_file:
     matchJSON = json.load(json_file)
     
+################################### MATCH = 1
 # Recebe struct Match match
 # int + int -> pacote
 # gameId gameDuration -> pacote
@@ -26,7 +26,7 @@ def matchInfToBytes(match):
 # arquivo do tipo struct Match = entrada
 # Como todos valores são booleanos, é possível armazenar todas as informações em um byte
 # class Match -> binario
-def teamBoolsByte(match):
+def matchBoolsByte(match):
     # Considera como o primeiro bit o mais a esquerda de um byte 
     # 1 BIT DEVE SER IGNORADO NAS BUSCAS
     firstByte = 1
@@ -61,10 +61,44 @@ def teamBoolsByte(match):
         firstByte = firstByte | 1
     return struct.pack('I',firstByte)
 
+#################################### TIMES = 2
+def teamStats(team):
+    #towerKills, inhibKills,baronKills,dragonKills,riftHealdKilsl
+    b = struct.pack('I I I I I', team.towerKills,team.inhibitorKills,team.baronKills,team.dragonKills,team.riftHeraldKills)
+    return b
+
+##################### PLAYER = 10
+# recebe elemento struct Participants
+
+# Retorna apenas o championID
+def participantChamp(p):
+    b = struct.pack('I',p.championId)
+    return b
+
+def participantKDA(p):
+# Ordem = championId, kills, deaths, assists
+    b = struct.pack('I I I',p.championId,p.kills,p.deaths.p.assists)
+    return b
+
+def participantKillsInfo(p):
+# Ordem = largestKS,largestMK,longTSL,doubleK,tripleK,quadraK,pentaK
+    b = struct.pack('I I I I I I I',p.largestKS,p.largestMK,p.longTSL,p.doubleKills,p.tripleKills,p.quadraKills,p.pentaKills)
+    return b
+
+def participantDmgInfo(p):
+# Ordem = totalddt, mddtc, pddtc, trueddtc, dmgobj, dmgtur
+    b = struct.pack('I I I I I I',p.totalddtc,p.mddtc,p.pddtc,p.trueddtc,p.dmgObj,p.dmgTur)
+    return b
+
+def participantInfo(p):
+# Ordem = visionscore,timecco,totalgold,turretKills,inibKills,totalMinionsK,neutralMinionsK, neutraMinionsKTJ,neutralMinionsKEJ,champLevel,vwb
+    b = struck.pack('I I I I I I I I I I I',p.visionscore,p.timeCCO,p.totalGold,p.turretKills,p.inhibKills,p.totalMinionsK,p.neutralMinionsK,p.neutralMinionsKTJ,p.neutralMinionsKEJ,p.champLevel,p.vwb,)
+
 ################### ETC
 match1 = Match(matchJSON)
-matchBool = (teamBoolsByte(match1))
+matchBool = (matchBoolsByte(match1))
 matchInfo = matchInfToBytes(match1)
+teamBStats = teamStats(match1.teamB)
 
 ################### ESCREVE ARQUIVO 
 f = open('bin.bin', 'wb')
