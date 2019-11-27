@@ -18,8 +18,6 @@ def put20MatchesFromMH(matchH):
         match = getMatchFMH(matchH,i)
         match = getMatchIDFMH(match)
         matchQueue.put(match)
-
-
 ########
 # MAIN #
 ########
@@ -35,14 +33,24 @@ matchQueue.put(1773189583)
 # matchQueue.put(1795061493)
 # matchQueue.put(1794404902)
 
-
-# TO-DO: COLOCAR PARTIDAS DE TODOS OS ELOS NA QUEUE
-
+#### LOOP
 match = getMatchInfo(str(matchQueue.get())) # Pega partida da fila
-summoner = getSummoner(match,7) # Pega um summoner aleatorio da partida
-accID = getPlayerAccountId(summoner) # Pega o ID do summoner
-matchH = getSummonerMatchHistory(accID) # Pega o historico de partidas do summoner
-put20MatchesFromMH(matchH) # Coloca 20 partidas do jogador na fila
+if (match):
+    summoner = getSummoner(match,7) # Pega um summoner aleatorio da partida
+    if (summoner): 
+        accID = getPlayerAccountId(summoner) # Pega o ID do summoner
+        matchH = getSummonerMatchHistory(accID) # Pega o historico de partidas do summoner
+        #############################
+        # BOTAR O TESTE COM A B TREE #
+        if (matchH): put20MatchesFromMH(matchH) # Coloca 20 partidas do jogador na fila
+    ######
+    # COLOCAR O ENPACOTADOR PARA BINARIO AQUI
+
+    ####
+    # CRIA ARQUIVO OU ADICIONA PARTIDA A LISTA INVERTIDA
+
+
+    
 
  # Esboco loop
 # match = matchQueue.get()

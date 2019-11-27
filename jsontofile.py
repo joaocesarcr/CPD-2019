@@ -6,16 +6,13 @@ import struct
 # Files
 from matchClasses import *
 from jsonManipulations import *
+from APIrequests import *
 
 # import teste 
 
+# TERMINAR LOOP
+# BYTES TO CLASS
 
-# TODO PQ ASSISTS NAO FUNCIONAAAAA
-# TODO Arrumar a solucao temporaria de utilizar uma funcao auxiliar para enpacotar as funcoes de transformacao em pacotes
-
-# TODO Utilizar a biblioteca array deixar o codigo mais legivel e limpo
-# TODO PERMITIR ITERAÇOES PELO AMOR DE DEUS
-# TODO Algum modo de utilizar lista para os jogadores 
 with open('output.json') as json_file:
     matchJSON = json.load(json_file)
 
@@ -23,8 +20,9 @@ def fullPack(match):
     matchP = matchPack(match) # 2I + h 
     teamP = teamPack(match.teamB) # 10H
     teamPP = teamPlayersPack(match.teamB) # 10h 17H 
-    return matchP + teamP + teamPP
-
+    teamPR = teamPack(match.teamR) # 10H
+    teamPPR = teamPlayersPack(match.teamR) # 10H
+    return matchP + teamP + teamPP + teamPR + teamPPR
 
 ################################### MATCH = 1
 def matchPack(match): 
@@ -109,11 +107,12 @@ def teamPlayersPack(team):
     # Recebe um time e empacota os dados de todos jogadores
     p1 = participantPack(team.participant1) #= 10h 6H 11H
     p2 = participantPack(team.participant2)
-    p3 = participantPack(team.participant3)
+    # p1A = struct.pack('i',team.participant1.assists)
+    p3 = participantPack(team.participant3) 
     p4 = participantPack(team.participant4)
-    # p5 = participantPack(team.participant5)
+    p5 = participantPack(team.participant5)
     # return  p1 + p2 + p3 + p4 + p5
-    return p1 + p2 + p4
+    return p1  + p2 + p3 + p4 + p5
 
 def participantPack(p):
     pStats = participantStats(p) #10h
@@ -169,10 +168,6 @@ def participantBool(p):
     b = struct.pack('h',bit)
     return b
 
-def getBoolean(inteiro):
-    inteiro = bin(inteiro)
-    # usar mascaras & e verificar o valor do numero
-    if(inteiro & 00000001):
 
         
 ################### ETC
@@ -191,12 +186,21 @@ pTst = teamPlayersPack(match1.teamB)
 
 # teamPP = teamPlayersPack(match1.teamB)
 
-# pStats = participantStats(match1.teamB.participant1)
+
+var = struct.pack('h h l', 5, 10, 15)
 ################### ESCREVE ARQUIVO 
 f = open('bin.bin', 'wb')
-f.write(pTst)
+f.write(fullP)
 f.close()
     
+matchPSTR = '2I h'
+teamPack = '10H'
+player = '10h 17H'
+################ LE ARQUIVO
+binaryFILE = open("bin.bin", 'rb')
+binary = binaryFILE.read(590)
+binary_unpack = struct.unpack(matchPSTR + teamPack + player*5 + teamPack + player * 5,binary)
+print(binary_unpack)
 
 # TESTAR TEAM PP
 # participantStats ERRO
