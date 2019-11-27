@@ -24,6 +24,7 @@ class Match:
 class Teams:
     def __init__(self,teamJSON):
 
+        # NAO TEM IMPORTANCIA POIS A ORDEM DO BYTE INDICARA QUAL TIME
         self.Id = teamJSON["teamId"] # int
         # BOOLSBYTETEAMS
         self.towerKills = teamJSON["towerKills"] # int
@@ -32,8 +33,10 @@ class Teams:
         self.dragonKills = teamJSON["dragonKills"] # int
         self.riftHeraldKills = teamJSON["riftHeraldKills"] # int
 
+        #TODO
         self.bans = getBans(teamJSON) # Lista coms o campeoes banidos
 
+        #TODO
         self.participant1 = (Participants(matchJSON["participants"][0]))
         self.participant2 = (Participants(matchJSON["participants"][1]))
         self.participant3 = (Participants(matchJSON["participants"][2]))
