@@ -11,12 +11,12 @@ class Match:
         
         # A SER INTERPRETADA DO PONTO DE VISTA DO TIME AZUL(teamB)
         self.win = matchJSON["teams"][0]["win"]   # Fail/Win
-        self.firstBlood = matchJSON["teams"][0]["firstBlood"] # false/true
-        self.firstTower = matchJSON["teams"][0]["firstTower"] # false/true 
+        self.firstBlood = matchJSON["teams"][0]["firstBlood"] # false/true self.firstTower = matchJSON["teams"][0]["firstTower"] # false/true 
         self.firstInhibitor = matchJSON["teams"][0]["firstInhibitor"] # false/true 
         self.firstBaron = matchJSON["teams"][0]["firstBaron"] # false/true 
         self.firstDragon = matchJSON["teams"][0]["firstDragon"] # false/true 
         self.firstRiftHerald = matchJSON["teams"][0]["firstRiftHerald"] # false/true 
+        self.firstTower = matchJSON["teams"][0]["firstTower"]
 
         self.teamB = (Teams(matchJSON["teams"][0]))
         self.teamR = (Teams(matchJSON["teams"][1]))
@@ -25,7 +25,6 @@ class Teams:
     def __init__(self,teamJSON):
 
         # NAO TEM IMPORTANCIA POIS A ORDEM DO BYTE INDICARA QUAL TIME
-        self.Id = teamJSON["teamId"] # int
         # BOOLSBYTETEAMS
         self.towerKills = teamJSON["towerKills"] # int
         self.inhibitorKills = teamJSON["inhibitorKills"] # int
@@ -33,15 +32,22 @@ class Teams:
         self.dragonKills = teamJSON["dragonKills"] # int
         self.riftHeraldKills = teamJSON["riftHeraldKills"] # int
 
-        #TODO
         self.bans = getBans(teamJSON) # Lista coms o campeoes banidos
 
-        #TODO
-        self.participant1 = (Participants(matchJSON["participants"][0]))
-        self.participant2 = (Participants(matchJSON["participants"][1]))
-        self.participant3 = (Participants(matchJSON["participants"][2]))
-        self.participant4 = (Participants(matchJSON["participants"][3]))
-        self.participant5 = (Participants(matchJSON["participants"][4]))
+
+        if (teamJSON["teamId"] == 100):
+            self.participant1 = (Participants(matchJSON["participants"][0]))
+            self.participant2 = (Participants(matchJSON["participants"][1]))
+            self.participant3 = (Participants(matchJSON["participants"][2]))
+            self.participant4 = (Participants(matchJSON["participants"][3]))
+            self.participant5 = (Participants(matchJSON["participants"][4]))
+        else:
+            self.participant1 = (Participants(matchJSON["participants"][5]))
+            self.participant2 = (Participants(matchJSON["participants"][6]))
+            self.participant3 = (Participants(matchJSON["participants"][7]))
+            self.participant4 = (Participants(matchJSON["participants"][8]))
+            self.participant5 = (Participants(matchJSON["participants"][9]))
+
 
 class Participants:
     def __init__(self,prtcJSON):
@@ -84,3 +90,4 @@ class Participants:
 class Player:
     def __init__(self, playerJSON):
         summoner = getSummoner(match,8) # Pega um summoner aleatorio da partida
+

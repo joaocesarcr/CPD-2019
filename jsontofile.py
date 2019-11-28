@@ -15,11 +15,11 @@ with open('output.json') as json_file:
 
 def fullPack(match):
     matchP = matchPack(match) # 2I + h 
-    teamP = teamPack(match.teamB) # 10H
-    teamPP = teamPlayersPack(match.teamB) # 10h 17H 
+    teamPB = teamPack(match.teamB) # 10H
+    teamPP = teamPlayersPack(match.teamB)
     teamPR = teamPack(match.teamR) # 10H
-    teamPPR = teamPlayersPack(match.teamR) # 10H
-    return matchP + teamP + teamPP + teamPR + teamPPR
+    teamPPR = teamPlayersPack(match.teamR)
+    return matchP + teamPB + teamPP + teamPR + teamPPR
 
 ################################### MATCH = 1
 def matchPack(match): 
@@ -27,8 +27,7 @@ def matchPack(match):
     a = matchInfToBytes(match) # 2I
     b = matchBoolsByte(match) # h
     return a + b
-# Recebe struct Match match
-# int + int -> pacote
+
 # gameId gameDuration -> pacote
 def matchInfToBytes(match):
     b = struct.pack('2I',match.gameId,match.gameDuration)
@@ -180,9 +179,6 @@ fullP = fullPack(match1)
 pTst = teamPlayersPack(match1.teamB)
 
 # teamPP = teamPlayersPack(match1.teamB)
-
-
-var = struct.pack('h h l', 5, 10, 15)
 ################### ESCREVE ARQUIVO 
 f = open('bin.bin', 'wb')
 f.write(fullP)
@@ -194,8 +190,11 @@ player = '10h 17H'
 ################ LE ARQUIVO
 binaryFILE = open("bin.bin", 'rb')
 binary = binaryFILE.read(590)
-binary_unpack = struct.unpack(matchPSTR + teamPack + player*5 + teamPack + player * 5,binary)
+binary_unpack = struct.unpack(matchPSTR + teamPack + (player * 5) + teamPack + (player * 5),binary)
+
 print(binary_unpack)
+# print(match1.teamR.participant5.championId)
+# print(match1.teamB.participant5.championId)
 
 # TESTAR TEAM PP
 # participantStats ERRO

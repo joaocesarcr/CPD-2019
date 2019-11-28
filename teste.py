@@ -65,7 +65,7 @@ for i in range(0, matchQueueSize):
     print(matchQueue.get())
 
 # sys.exit()
-# print(json.dumps(matchH["matches"][1], indent=4, sort_keys=False))
+print(json.dumps(matchH["matches"][1], indent=4, sort_keys=False))
 # for player in match["participantIdentities"]:
     # print(json.dumps(player, indent=4, sort_keys=False))
 
