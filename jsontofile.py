@@ -10,8 +10,8 @@ from APIrequests import *
 
 # TODO PLAYER BOOLEANS nao esta sendo utilizado
 
-with open('output.json') as json_file:
-    matchJSON = json.load(json_file)
+# with open('output.json') as json_file:
+    # matchJSON = json.load(json_file)
 
 def fullPack(match):
     matchP = matchPack(match) # 2I + h 
@@ -180,7 +180,7 @@ pTst = teamPlayersPack(match1.teamB)
 
 # teamPP = teamPlayersPack(match1.teamB)
 ################### ESCREVE ARQUIVO 
-f = open('bin.bin', 'wb')
+f = open('bin.bin', 'ab')
 f.write(fullP)
 f.close()
     
@@ -188,11 +188,10 @@ matchPSTR = '2I h'
 teamPack = '10H'
 player = '10h 17H'
 ################ LE ARQUIVO
-binaryFILE = open("bin.bin", 'rb')
-binary = binaryFILE.read(590)
-binary_unpack = struct.unpack(matchPSTR + teamPack + (player * 5) + teamPack + (player * 5),binary)
+# binaryFILE = open("bin.bin", 'rb')
+# binary = binaryFILE.read(590)
+# binary_unpack = struct.unpack(matchPSTR + teamPack + (player * 5) + teamPack + (player * 5),binary)
 
-print(binary_unpack)
 # print(match1.teamR.participant5.championId)
 # print(match1.teamB.participant5.championId)
 
