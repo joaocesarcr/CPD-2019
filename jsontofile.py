@@ -8,10 +8,7 @@ from matchClasses import *
 from jsonManipulations import *
 from APIrequests import *
 
-# import teste 
-
-# TERMINAR LOOP
-# BYTES TO CLASS
+# TODO PLAYER BOOLEANS nao esta sendo utilizado
 
 with open('output.json') as json_file:
     matchJSON = json.load(json_file)
@@ -107,11 +104,9 @@ def teamPlayersPack(team):
     # Recebe um time e empacota os dados de todos jogadores
     p1 = participantPack(team.participant1) #= 10h 6H 11H
     p2 = participantPack(team.participant2)
-    # p1A = struct.pack('i',team.participant1.assists)
     p3 = participantPack(team.participant3) 
     p4 = participantPack(team.participant4)
     p5 = participantPack(team.participant5)
-    # return  p1 + p2 + p3 + p4 + p5
     return p1  + p2 + p3 + p4 + p5
 
 def participantPack(p):
