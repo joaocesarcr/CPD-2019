@@ -13,6 +13,14 @@ def getSummoner(match, number):
     if (match): summoner = match["participantIdentities"][number]
     return summoner
     
+# Recebe uma partida e retorna uma lista com todos personagens da partida
+# json -> list
+def getMatchChampions(match):
+    matchChampionsList = ()
+    for player in match["participants"]:
+        matchChampionsList.append(player["championId"])
+    return matchChampionsList
+
 # Recebe um sumonner  de uma partida e retorna o seu ID
 # recebe um participant identities"
 # json -> str

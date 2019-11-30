@@ -195,5 +195,3 @@ player = '10h 17H'
 # print(match1.teamR.participant5.championId)
 # print(match1.teamB.participant5.championId)
 
-# TESTAR TEAM PP
-# participantStats ERRO
