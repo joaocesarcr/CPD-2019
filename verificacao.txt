@@ -1,15 +1,31 @@
 MATCHPACK  = 3 VALORES
 (1773189583,2192,
+ID, DURATION
 155,  
+BYTE COM INFORMACOES = 
+1 mais a esquerda é sempre 1
+WIN
+FIRSTBLOOD
+FIRST TOWER
+FIRSTINIB
+FIRST BARON
+FIRST DRAGON
+FIRST RIFT HERALD
 
 TEAM B PACK = 10 VALORES
 stats
 8, 1, 0, 4, 1
-bans
+towerKills
+inibKills
+baronKills
+dragonKills
+riftHeraldKills
+
+bans 
 81, 38, 35, 555, 86,
 
 PLAYERS
-1
+PLAYER1
 64, 18, 14, 3, 2, 377, 2, 0, 0, 0,        10 valores
 25621, 4509, 20703, 408, 17754, 3994,     6 valores 
 28, 21, 18221, 2, 1, 58, 102, 69, 8, 17, 0,  11 valores

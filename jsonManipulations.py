@@ -16,7 +16,7 @@ def getSummoner(match, number):
 # Recebe uma partida e retorna uma lista com todos personagens da partida
 # json -> list
 def getMatchChampions(match):
-    matchChampionsList = ()
+    matchChampionsList = []
     for player in match["participants"]:
         matchChampionsList.append(player["championId"])
     return matchChampionsList
@@ -29,10 +29,18 @@ def getPlayerAccountId(summoner):
     return accountID 
 
 # Get match from match history
-# Recebe um historico de partidas e uma posicao e retorna a partida a posicao number
-# json + int -> json
-def getMatchFMH(matchHistory, number):
-    return matchHistory["matches"][number]
+# Recebe um historico de partidas e retorna uma lista com o ID das partidas
+# json -> list
+def getMatchFMH(matchHistory):
+    maxMatches = 0
+    matchesList = []
+    if matchHistory["matches"]:
+        for match in matchHistory["matches"]:
+            maxMatches = maxMatches + 1
+            matchesList.append(match["gameId"])
+            if (maxMatches > 15):
+                break
+    return matchesList
 
 # Get match ID from a match in match history
 # Recebe uma partida de um historico de partidas e retorna seu ID

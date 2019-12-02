@@ -6,7 +6,6 @@ import struct
 # Files
 from matchClasses import *
 from jsonManipulations import *
-from APIrequests import *
 
 # TODO PLAYER BOOLEANS nao esta sendo utilizado
 
@@ -90,6 +89,9 @@ def teamStats(team):
 
 def teamBans(team):
 #TODO passar para array
+    for i in range(len(team.bans)):
+        if team.bans[i] < 0:
+            team.bans[i] = 0
     ban1 = team.bans[0]
     ban2 = team.bans[1]
     ban3 = team.bans[2]
@@ -171,22 +173,17 @@ def participantBool(p):
 # Dados time azul
     # bans do time azul
     # dados players dos times
-match1 = Match(matchJSON)
+# match1 = Match(matchJSON)
  
 #Match
-fullP = fullPack(match1)
 # teamP = teamPlayersPack(match1.teamB)
-pTst = teamPlayersPack(match1.teamB)
+# pTst = teamPlayersPack(match1.teamB)
 
 # teamPP = teamPlayersPack(match1.teamB)
 ################### ESCREVE ARQUIVO 
-f = open('bin.bin', 'ab')
-f.write(fullP)
-f.close()
-    
-matchPSTR = '2I h'
-teamPack = '10H'
-player = '10h 17H'
+# matchPSTR = '2I h'
+# teamPack = '10H'
+# player = '10h 17H'
 ################ LE ARQUIVO
 # binaryFILE = open("bin.bin", 'rb')
 # binary = binaryFILE.read(590)
