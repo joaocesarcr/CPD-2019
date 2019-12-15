@@ -27,7 +27,7 @@ from jsonToFile import *
 # Recebe um match history e coloca 20 partidas numa lista 
 # JSON -> Lista
 
-print('Inicializando...')
+print('Loading...')
 # TODO: NAO USAR ESTA FUNCAO
 def matchHToList(matchH):
     matchList = []
@@ -71,9 +71,9 @@ cj.close()
 ########
 # MAIN #
 ########
-print('Total de partidas escritas =', totalMatchesWritten)
+print('Total matches written =', totalMatchesWritten)
 
-print('Começo Loop...')
+print('Loop...')
 
 raiz = nodo_btree(0, btree_matchs)
 #######
@@ -84,15 +84,14 @@ i = 0 # TOTAL DE PARTIDAS COLETADAS DESDE O INICIO DO PROGRAMA
 matchList = matchesToSearch
 
 try:
+    i = 1
     while True:
         print("Don't stop now")
-        print(matchList)
         match = getMatchInfo(str(matchList.pop(0))) # Pega partida da fila RETONAR JSON
         time.sleep(1)
 
         if (match): # Verifica se a partida nao esta vazia
             matchID = (match["gameId"] % 10000)
-            print('MachID =',matchID)
             for player in range(10):
                 summoner = getSummoner(match,player) # Roda pelos 10 jogadores da partida
                 if (summoner): # Checa se a informacao recebida pela API é válida
@@ -108,43 +107,46 @@ try:
 
             structedMatch = Match(match)
             if (raiz.insert_raiz(0, matchID, totalMatchesWritten + i, 'btree_matchs')): # ESCRITA COM SUCESSO
+                print('{} Matches written'.format(i))
                 with open('matches.bin', 'ab') as f:
                     fulP = fullPack(structedMatch)
                     f.write(fulP)
                     f.close()
 
+                totalMatchesWritten = totalMatchesWritten + 1
                 championsList = getMatchChampions(match) # Pega uma lista com todos os personagens da partida
-                matchIDBin = struct.pack('L',matchID) # Transforma o ID da partida em binario para escrever na lista invertida dos campeoes
+                matchPositionBin = struct.pack('I',totalMatchesWritten)
+                # matchIDBin = struct.pack('L',matchID) # Transforma o ID da partida em binario para escrever na lista invertida dos campeoes
                 for champion in championsList:
                     diretorio = './championsMatches/'+ c[champion] + '.bin'
                     with open(diretorio, 'ab+') as championFile:
-                        championFile.write(matchIDBin)
-                    championFile.close()
+                        # championFile.write(matchIDBin)
+                        championFile.write(matchPositionBin)
+                        championFile.close()
 
                 i = i + 1
 
                 with open('matchesnumber.bin', 'wb+') as totalMatches:
-                    totalMatchesBin = struct.pack('L',totalMatchesWritten + i)
+                    totalMatchesBin = struct.pack('L',totalMatchesWritten)
                     totalMatches.write(totalMatchesBin)
                 totalMatches.close()
 
             else:
-                print('PARTIDA REPETIDA')
+                pass
 
         else:
             print('Couldnt find match')
             time.sleep(120)
 
-        print('{} Matches written'.format(i))
         print('Good time to stop')
         time.sleep(3)
 
 except KeyboardInterrupt:
+    print('')
     print('Finishing...')
     time.sleep(3)
     print('{} Matches written in this session'.format(i))
 
-    totalMatchesWritten = totalMatchesWritten + i
     print('{} Total matches written'.format(totalMatchesWritten))
     with open('matchesnumber.bin', 'wb+') as totalMatches:
         totalMatchesBin = struct.pack('L',totalMatchesWritten)

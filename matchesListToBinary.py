@@ -1,4 +1,16 @@
 import struct
+import sys
+
+
+##############################################################
+# Arquivo para zerar todos os arquivos que contem informacao #
+##############################################################
+choice = input("1 = deleta tudo, 0 nao deleta nada:")
+if not choice:
+    print("Nada será deletado")
+    sys.exit()
+
+print("Deletando tudo")
 matchesToSearch = []
 matchesToSearch.append(1773189583)
 matchesToSearch.append(1798597502)

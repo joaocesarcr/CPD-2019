@@ -1,9 +1,5 @@
 import json
 from jsonManipulations import *
-
-with open('output.json') as json_file:
-    matchJSON = json.load(json_file)
-
 class Match:
     def __init__(self,matchJSON):
         self.gameId = matchJSON["gameId"]
